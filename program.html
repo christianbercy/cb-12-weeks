@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CB 12 Weeks Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: single column logbook sheet, 700px, section anchors as a scrolling pill rail */
+:root{
+  --paper:#eceee8;
+  --card:#f7f8f4;
+  --ink:#141b17;
+  --mid:#43524a;
+  --mut:#6b7a72;
+  --line:#c9d1c9;
+  --line2:#aab5ac;
+  --accent:#b23a2e;
+  --steel:#2f4a44;
+  --steel-bg:#e2e8e3;
+  --display:"Barlow Condensed",Impact,sans-serif;
+  --body:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0f1512;
+    --card:#161e1a;
+    --ink:#e9eee9;
+    --mid:#c3cfc7;
+    --mut:#93a49a;
+    --line:#2a3731;
+    --line2:#3b4a43;
+    --accent:#e0715f;
+    --steel:#9fc0b4;
+    --steel-bg:#1c2723;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0f1512;
+  --card:#161e1a;
+  --ink:#e9eee9;
+  --mid:#c3cfc7;
+  --mut:#93a49a;
+  --line:#2a3731;
+  --line2:#3b4a43;
+  --accent:#e0715f;
+  --steel:#9fc0b4;
+  --steel-bg:#1c2723;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:15.5px;
+  line-height:1.55;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:0 56px;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:700px; margin:0 auto}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+p{margin:0 0 12px}
+.mono{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+/* masthead */
+header{
+  padding-block:28px 18px;
+  border-bottom:3px solid var(--ink);
+  margin-bottom:18px;
+}
+.kicker{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:600;
+  margin-bottom:8px;
+}
+h1{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:clamp(38px,11vw,60px);
+  line-height:.94;
+  letter-spacing:.005em;
+  text-transform:uppercase;
+  margin:0 0 10px;
+  text-wrap:balance;
+}
+.sub{color:var(--mid); font-size:15px; max-width:52ch; margin:0}
+.facts{
+  display:flex; flex-wrap:wrap; gap:0;
+  margin-top:20px; border-top:1px solid var(--line2);
+}
+.fact{
+  flex:1 1 92px; padding:10px 10px 8px 0; min-width:0;
+}
+.fact .v{
+  font-family:var(--display);
+  font-size:26px; font-weight:600; line-height:1;
+  display:block;
+}
+.fact .l{
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--mut); display:block; margin-top:4px;
+}
+
+/* nav rail */
+nav{
+  display:flex; gap:6px; overflow-x:auto; padding-block:0 14px;
+  scrollbar-width:none; position:sticky; top:0; z-index:5;
+  background:var(--paper); padding-top:8px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:8px;
+}
+nav::-webkit-scrollbar{display:none}
+nav a{
+  flex:0 0 auto; font-family:var(--mono); font-size:11px;
+  letter-spacing:.06em; text-transform:uppercase; text-decoration:none;
+  color:var(--mid); border:1px solid var(--line);
+  padding:5px 10px; border-radius:999px; background:var(--card);
+  white-space:nowrap;
+}
+nav a:hover{color:var(--ink); border-color:var(--line2)}
+nav a.hot{color:var(--accent); border-color:var(--accent)}
+
+/* sections */
+section{padding-block:26px 6px; scroll-margin-top:56px}
+h2{
+  font-family:var(--display); text-transform:uppercase;
+  font-size:26px; font-weight:600; letter-spacing:.02em;
+  margin:0 0 4px; line-height:1.05;
+  display:flex; align-items:baseline; gap:10px;
+}
+h2 .n{
+  font-family:var(--mono); font-size:11px; letter-spacing:.1em;
+  color:var(--accent); font-weight:600;
+}
+h3{
+  font-family:var(--display); text-transform:uppercase;
+  font-size:17px; font-weight:600; letter-spacing:.04em;
+  margin:0; line-height:1.1;
+}
+.lede{color:var(--mid); margin:6px 0 16px; max-width:58ch}
+.rule{height:1px; background:var(--line); margin:0 0 16px}
+
+/* day cards */
+.day{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-top:3px solid var(--steel);
+  padding:14px 14px 8px;
+  margin-bottom:14px;
+}
+.day.acc{border-top-color:var(--accent)}
+.dh{display:flex; align-items:flex-start; gap:10px; margin-bottom:2px}
+.dnum{
+  font-family:var(--display); font-size:34px; font-weight:700;
+  line-height:.8; color:var(--accent); min-width:30px;
+}
+.dh .t{min-width:0}
+.dh .t .tag{
+  font-family:var(--mono); font-size:10px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--mut); display:block; margin-top:2px;
+}
+.dmeta{
+  margin-left:auto; text-align:right; font-family:var(--mono);
+  font-size:10px; line-height:1.5; color:var(--mut); flex:0 0 auto;
+}
+.dmeta b{display:block; color:var(--ink); font-size:13px; font-weight:600}
+table{width:100%; border-collapse:collapse}
+.exh th{
+  font-family:var(--mono); font-size:9px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--mut); font-weight:500;
+  text-align:right; padding:6px 0 5px; border-bottom:1px solid var(--line);
+}
+.exh th:first-child{text-align:left}
+tr.ex td{
+  padding:7px 0; border-bottom:1px solid var(--line);
+  font-size:13.5px; vertical-align:baseline;
+}
+tr.ex:last-child td{border-bottom:0}
+tr.ex td:first-child{padding-right:8px}
+td.num{
+  font-family:var(--mono); font-size:12.5px; text-align:right;
+  white-space:nowrap; padding-left:8px; color:var(--mid);
+}
+td.sets{color:var(--ink); font-weight:500}
+tr.warm td{color:var(--mut); font-style:italic}
+.note{
+  font-family:var(--mono); font-size:10.5px; color:var(--mut);
+  padding:8px 0 4px; letter-spacing:.02em;
+}
+
+/* volume table */
+.tw{overflow-x:auto; -webkit-overflow-scrolling:touch}
+table.vol{
+  min-width:420px; font-size:13.5px;
+  border-top:2px solid var(--ink);
+}
+table.vol th{
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--mut); font-weight:500;
+  text-align:right; padding:7px 8px; border-bottom:1px solid var(--line2);
+}
+table.vol th:first-child, table.vol td:first-child{text-align:left; padding-left:0}
+table.vol td{
+  padding:7px 8px; border-bottom:1px solid var(--line);
+  text-align:right; font-family:var(--mono); font-size:12.5px;
+  font-variant-numeric:tabular-nums; color:var(--mid);
+}
+table.vol td.m{font-family:var(--body); font-size:13.5px; color:var(--ink)}
+table.vol td.new{color:var(--ink); font-weight:600}
+table.vol tr.tot td{border-bottom:0; border-top:2px solid var(--ink); padding-top:9px; color:var(--ink); font-weight:600}
+.up{color:var(--accent)}
+.down{color:var(--mut)}
+
+/* blocks */
+.block{
+  display:grid; grid-template-columns:74px 1fr; gap:12px;
+  padding:12px 0; border-bottom:1px solid var(--line);
+}
+.block:last-child{border-bottom:0}
+.block .w{
+  font-family:var(--mono); font-size:10px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--mut); line-height:1.5;
+}
+.block .w b{display:block; font-family:var(--display); font-size:24px; color:var(--ink); font-weight:600; letter-spacing:0}
+.block p{margin:3px 0 0; font-size:14px; color:var(--mid)}
+.dl{
+  display:inline-block; font-family:var(--mono); font-size:10px;
+  letter-spacing:.06em; text-transform:uppercase;
+  border:1px solid var(--accent); color:var(--accent);
+  padding:1px 6px; border-radius:3px; margin-top:6px;
+}
+
+/* lists */
+ul.flat{list-style:none; margin:0; padding:0}
+ul.flat li{
+  padding:9px 0; border-bottom:1px solid var(--line);
+  display:grid; grid-template-columns:1fr auto; gap:12px;
+  align-items:baseline; font-size:14px;
+}
+ul.flat li:last-child{border-bottom:0}
+ul.flat .k{color:var(--mid); font-family:var(--mono); font-size:11.5px; white-space:nowrap}
+ol.steps{margin:0; padding-left:0; list-style:none; counter-reset:s}
+ol.steps li{
+  counter-increment:s; position:relative; padding:10px 0 10px 34px;
+  border-bottom:1px solid var(--line); font-size:14px;
+}
+ol.steps li:last-child{border-bottom:0}
+ol.steps li::before{
+  content:counter(s,decimal-leading-zero);
+  position:absolute; left:0; top:10px;
+  font-family:var(--mono); font-size:11px; color:var(--accent); font-weight:600;
+}
+ol.steps b{font-weight:600}
+
+.callout{
+  background:var(--steel-bg);
+  border-left:3px solid var(--steel);
+  padding:12px 14px; margin:14px 0;
+  font-size:14px; color:var(--mid);
+}
+.callout b{color:var(--ink)}
+footer{
+  margin-top:34px; padding-top:14px; border-top:3px solid var(--ink);
+  font-family:var(--mono); font-size:10.5px; line-height:1.7;
+  color:var(--mut); letter-spacing:.02em;
+}
+@media (max-width:430px){
+  body{font-size:15px}
+  .day{padding:12px 12px 6px}
+  td.num{padding-left:6px; font-size:11.5px}
+  tr.ex td{font-size:13px}
+  .fact .v{font-size:22px}
+}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="kicker">12 week block &middot; push pull legs</div>
+  <h1>CB 12 Weeks Program</h1>
+  <p class="sub">Six sessions, three blocks, one progression rule set. Corrected from the original sheet: volume trimmed where it was redundant, hinge, calves and grip added, cardio put on the calendar.</p>
+  <div class="facts">
+    <div class="fact"><span class="v">141</span><span class="l">sets / week</span></div>
+    <div class="fact"><span class="v">6</span><span class="l">days / week</span></div>
+    <div class="fact"><span class="v">70-82</span><span class="l">minutes / session</span></div>
+    <div class="fact"><span class="v">3</span><span class="l">blocks</span></div>
+  </div>
+</header>
+
+<nav>
+  <a href="#audit">Audit</a>
+  <a href="#volume">Volume</a>
+  <a href="#blocks">Blocks</a>
+  <a href="#push-a" class="hot">Push A</a>
+  <a href="#pull-a">Pull A</a>
+  <a href="#legs-a">Legs A</a>
+  <a href="#push-b">Push B</a>
+  <a href="#pull-b">Pull B</a>
+  <a href="#legs-b">Legs B</a>
+  <a href="#rules">Rules</a>
+  <a href="#cardio">Cardio</a>
+  <a href="#fuel">Nutrition</a>
+</nav>
+
+<section id="audit">
+  <h2><span class="n">01</span> What changed</h2>
+  <p class="lede">The original sheet was 169 sets a week, 28 per session, with five pulldown variations, one hinge movement and no conditioning. That is a mass program running on a deficit.</p>
+  <ul class="flat">
+    <li><span>Weekly sets</span><span class="k">169 &rarr; 141</span></li>
+    <li><span>Chest direct sets</span><span class="k">27 &rarr; 19</span></li>
+    <li><span>Back direct sets</span><span class="k">28 &rarr; 20</span></li>
+    <li><span>Pulldown variations</span><span class="k">5 &rarr; 2</span></li>
+    <li><span>Hinge movements</span><span class="k">1 &rarr; 2</span></li>
+    <li><span>Calf sets</span><span class="k">6 &rarr; 10</span></li>
+    <li><span>Direct grip work</span><span class="k">0 &rarr; 3</span></li>
+    <li><span>Conditioning</span><span class="k">0 &rarr; 120-160 min</span></li>
+  </ul>
+  <div class="callout"><b>The one rule behind the cuts:</b> sets past roughly 20 per muscle per week buy very little extra growth and cost recovery you need for the deficit. Chest, back and quads were all above that at once.</div>
+</section>
+
+<section id="volume">
+  <h2><span class="n">02</span> Weekly volume</h2>
+  <p class="lede">Direct working sets per muscle. Some sets train two muscles, so the column does not add to 141.</p>
+  <div class="tw">
+    <table class="vol">
+      <thead><tr><th>Muscle</th><th>Was</th><th>Now</th><th>Target</th></tr></thead>
+      <tbody>
+        <tr><td class="m">Chest</td><td>27</td><td class="new">19</td><td>16-20</td></tr>
+        <tr><td class="m">Back and lats</td><td>28</td><td class="new">20</td><td>18-22</td></tr>
+        <tr><td class="m">Quads</td><td>24</td><td class="new">18</td><td>14-18</td></tr>
+        <tr><td class="m">Hamstrings</td><td>9</td><td class="new">14</td><td>12-16</td></tr>
+        <tr><td class="m">Glutes</td><td>15</td><td class="new">15</td><td>10-16</td></tr>
+        <tr><td class="m">Side delts</td><td>9</td><td class="new">10</td><td>10-12</td></tr>
+        <tr><td class="m">Rear delts</td><td>9</td><td class="new">11</td><td>8-12</td></tr>
+        <tr><td class="m">Biceps</td><td>18</td><td class="new">12</td><td>12-14</td></tr>
+        <tr><td class="m">Triceps</td><td>15</td><td class="new">12</td><td>12-14</td></tr>
+        <tr><td class="m">Calves</td><td>6</td><td class="new">10</td><td>10-12</td></tr>
+        <tr><td class="m">Abs</td><td>12</td><td class="new">9</td><td>8-10</td></tr>
+        <tr class="tot"><td>Sets performed</td><td>169</td><td>141</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="blocks">
+  <h2><span class="n">03</span> Three blocks</h2>
+  <div class="block">
+    <div class="w"><b>1</b>Weeks 1-4</div>
+    <div>
+      <h3>Normalize</h3>
+      <p>RIR 3 on main lifts, clean baselines, hinge installed. Cardio 3 x 25 min zone 2, 8k steps.</p>
+      <span class="dl">Week 4: mini-deload, 60% sets, 10% lighter</span>
+    </div>
+  </div>
+  <div class="block">
+    <div class="w"><b>2</b>Weeks 5-8</div>
+    <div>
+      <h3>Intensify</h3>
+      <p>Top set plus back-offs on mains, RIR 1-2. Accessories rotate. Cardio 3 x 30 min plus one interval session.</p>
+      <span class="dl">Week 8: full deload, 50% sets, eat at maintenance</span>
+    </div>
+  </div>
+  <div class="block">
+    <div class="w"><b>3</b>Weeks 9-12</div>
+    <div>
+      <h3>Density</h3>
+      <p>Accessories move to 12-20 reps, shorter rests, supersets. Cardio 4 x 30 min if weight loss has stalled.</p>
+      <span class="dl">Week 12: test, then 5-7 easy days</span>
+    </div>
+  </div>
+</section>
+
+<section id="push-a">
+  <h2><span class="n">04</span> The six sessions</h2>
+  <p class="lede">Rotation: accessories marked with a dot swap at week 5 and week 9. Main lifts stay fixed all twelve weeks.</p>
+
+  <div class="day acc">
+    <div class="dh">
+      <div class="dnum">1</div>
+      <div class="t"><h3>Push A</h3><span class="tag">Chest strength</span></div>
+      <div class="dmeta"><b>24</b>sets<br>78 min</div>
+    </div>
+    <table>
+      <thead class="exh"><tr><th>Exercise</th><th>Sets</th><th>RIR</th><th>Rest</th></tr></thead>
+      <tbody>
+        <tr class="ex warm"><td>Machine pec deck (activation)</td><td class="num sets">2 x 12-15</td><td class="num">3</td><td class="num">45s</td></tr>
+        <tr class="ex"><td>Barbell bench press</td><td class="num sets">4 x 4-6</td><td class="num">2</td><td class="num">2:30</td></tr>
+        <tr class="ex"><td>Incline dumbbell press</td><td class="num sets">3 x 8-10</td><td class="num">2</td><td class="num">2:00</td></tr>
+        <tr class="ex"><td>Cable chest fly</td><td class="num sets">2 x 12-15</td><td class="num">1</td><td class="num">1:15</td></tr>
+        <tr class="ex"><td>Seated dumbbell shoulder press</td><td class="num sets">3 x 8-10</td><td class="num">2</td><td class="num">1:30</td></tr>
+        <tr class="ex"><td>Dumbbell lateral raise</td><td class="num sets">3 x 12-15</td><td class="num">1</td><td class="num">45s</td></tr>
+        <tr class="ex"><td>Rope triceps pushdown</td><td class="num sets">3 x 10-12</td><td class="num">1</td><td class="num">1:15</td></tr>
+        <tr class="ex"><td>Decline EZ-bar skull crusher</td><td class="num sets">2 x 10-12</td><td class="num">1</td><td class="num">1:15</td></tr>
+        <tr class="ex"><td>Standing calf raise</td><td class="num sets">2 x 15-20</td><td class="num">0</td><td class="num">45s</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Dips removed. Eleven chest sets already cover the pattern.</div>
+  </div>
+</section>
+
+<section id="pull-a">
+  <div class="day">
+    <div class="dh">
+      <div class="dnum">2</div>
+      <div class="t"><h3>Pull A</h3><span class="tag">Back thickness</span></div>
+      <div class="dmeta"><b>21</b>sets<br>72 min</div>
+    </div>
+    <table>
+      <thead class="exh"><tr><th>Exercise</th><th>Sets</th><th>RIR</th><th>Rest</th></tr></thead>
+      <tbody>
+        <tr class="ex"><td>Neutral-grip pull-up</td><td class="num sets">3 x 6-8</td><td class="num">2</td><td class="num">2:00</td></tr>
+        <tr class="ex"><td>Barbell bent-over row</td><td class="num sets">3 x 6-8</td><td class="num">2</td><td class="num">2:00</td></tr>
+        <tr class="ex"><td>Chest-supported row</td><td class="num sets">3 x 8-10</td><td class="num">2</td><td class="num">2:00</td></tr>
+        <tr class="ex"><td>One-arm cable lat pulldown</td><td class="num sets">2 x 10-12</td><td class="num">1</td><td class="num">1:15</td></tr>
+        <tr class="ex"><td>Face pull</td><td class="num sets">3 x 12-15</td><td class="num">1</td><td class="num">60s</td></tr>
+        <tr class="ex"><td>EZ-bar curl</td><td class="num sets">3 x 8-10</td><td class="num">1</td><td class="num">1:15</td></tr>
+        <tr class="ex"><td>Hammer curl</td><td class="num sets">2 x 10-12</td><td class="num">1</td><td class="num">60s</td></tr>
+        <tr class="ex"><td>Dumbbell or machine shrug</td><td class="num sets">2 x 10-12</td><td class="num">1</td><td class="num">60s</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Two pulldown slots gone. The row is the strength lift here.</div>
+  </div>
+</section>
+
+<section id="legs-a">
+  <div class="day">
+    <div class="dh">
+      <div class="dnum">3</div>
+      <div class="t"><h3>Legs A</h3><span class="tag">Squat and posterior chain</span></div>
+      <div class="dmeta"><b>24</b>sets<br>80 min</div>
+    </div>
+    <table>
+      <thead class="exh"><tr><th>Exercise</th><th>Sets</th><th>RIR</th><th>Rest</th></tr></thead>
+      <tbody>
+        <tr class="ex"><td>Back squat</td><td class="num sets">4 x 4-6</td><td class="num">2</td><td class="num">3:00</td></tr>
+        <tr class="ex"><td>Romanian deadlift</td><td class="num sets">3 x 6-8</td><td class="num">2</td><td class="num">2:00</td></tr>
+        <tr class="ex"><td>Leg press</td><td class="num sets">3 x 10-12</td><td class="num">2</td><td class="num">2:00</td></tr>
+        <tr class="ex"><td>Seated leg curl</td><td class="num sets">3 x 10-12</td><td class="num">1</td><td class="num">1:30</td></tr>
+        <tr class="ex"><td>Leg extension</td><td class="num sets">3 x 10-12</td><td class="num">1</td><td class="num">1:30</td></tr>
+        <tr class="ex"><td>Standing calf raise</td><td class="num sets">3 x 12-15</td><td class="num">1</td><td class="num">45s</td></tr>
+        <tr class="ex"><td>Hanging leg raise</td><td class="num sets">3 x 10-15</td><td class="num">1</td><td class="num">60s</td></tr>
+        <tr class="ex"><td>Ab roll-out</td><td class="num sets">2 x 10-12</td><td class="num">1</td><td class="num">60s</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Lunges dropped, ab roll-out added for anti-extension.</div>
+  </div>
+</section>
+
+<section id="push-b">
+  <div class="day acc">
+    <div class="dh">
+      <div class="dnum">4</div>
+      <div class="t"><h3>Push B</h3><span class="tag">Upper chest and delts</span></div>
+      <div class="dmeta"><b>24</b>sets<br>76 min</div>
+    </div>
+    <table>
+      <thead class="exh"><tr><th>Exercise</th><th>Sets</th><th>RIR</th><th>Rest</th></tr></thead>
+      <tbody>
+        <tr class="ex"><td>Incline barbell bench press</td><td class="num sets">3 x 6-10</td><td class="num">2</td><td class="num">2:00</td></tr>
+        <tr class="ex"><td>Flat dumbbell press</td><td class="num sets">3 x 10-12</td><td class="num">2</td><td class="num">1:45</td></tr>
+        <tr class="ex"><td>Hammer Strength decline press</td><td class="num sets">2 x 8-12</td><td class="num">1</td><td class="num">1:30</td></tr>
+        <tr class="ex"><td>Cable lateral raise</td><td class="num sets">4 x 12-15</td><td class="num">1</td><td class="num">45s</td></tr>
+        <tr class="ex"><td>Dumbbell Y-raise</td><td class="num sets">3 x 12-15</td><td class="num">1</td><td class="num">45s</td></tr>
+        <tr class="ex"><td>Dips</td><td class="num sets">2 x 6-10</td><td class="num">2</td><td class="num">1:30</td></tr>
+        <tr class="ex"><td>Overhead cable triceps extension</td><td class="num sets">3 x 10-15</td><td class="num">1</td><td class="num">60s</td></tr>
+        <tr class="ex"><td>Triceps kickback</td><td class="num sets">2 x 12-15</td><td class="num">0</td><td class="num">45s</td></tr>
+        <tr class="ex"><td>Seated calf raise</td><td class="num sets">2 x 15-20</td><td class="num">0</td><td class="num">45s</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Incline moves to the front. Laterals run before the last press.</div>
+  </div>
+</section>
+
+<section id="pull-b">
+  <div class="day">
+    <div class="dh">
+      <div class="dnum">5</div>
+      <div class="t"><h3>Pull B</h3><span class="tag">Lat width and upper back</span></div>
+      <div class="dmeta"><b>24</b>sets<br>74 min</div>
+    </div>
+    <table>
+      <thead class="exh"><tr><th>Exercise</th><th>Sets</th><th>RIR</th><th>Rest</th></tr></thead>
+      <tbody>
+        <tr class="ex"><td>Behind-the-back lat pulldown</td><td class="num sets">3 x 8-10</td><td class="num">2</td><td class="num">2:00</td></tr>
+        <tr class="ex"><td>Meadow row</td><td class="num sets">3 x 10-12</td><td class="num">2</td><td class="num">1:30</td></tr>
+        <tr class="ex"><td>Seated cable row</td><td class="num sets">3 x 12-15</td><td class="num">1</td><td class="num">1:15</td></tr>
+        <tr class="ex"><td>Reverse pec deck</td><td class="num sets">2 x 12-15</td><td class="num">1</td><td class="num">60s</td></tr>
+        <tr class="ex"><td>Cable lateral raise</td><td class="num sets">3 x 12-15</td><td class="num">0</td><td class="num">45s</td></tr>
+        <tr class="ex"><td>Incline dumbbell curl</td><td class="num sets">3 x 10-12</td><td class="num">1</td><td class="num">60s</td></tr>
+        <tr class="ex"><td>Bayesian cable curl</td><td class="num sets">2 x 10-12</td><td class="num">1</td><td class="num">60s</td></tr>
+        <tr class="ex"><td>Reverse EZ-bar curl</td><td class="num sets">2 x 12-15</td><td class="num">0</td><td class="num">60s</td></tr>
+        <tr class="ex"><td>Farmer carry</td><td class="num sets">3 x 30-45s</td><td class="num">1</td><td class="num">60s</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Second rear-delt fly and the duplicate pulldown removed. Carries cover grip.</div>
+  </div>
+</section>
+
+<section id="legs-b">
+  <div class="day">
+    <div class="dh">
+      <div class="dnum">6</div>
+      <div class="t"><h3>Legs B</h3><span class="tag">Quads, glutes and hinge</span></div>
+      <div class="dmeta"><b>24</b>sets<br>82 min</div>
+    </div>
+    <table>
+      <thead class="exh"><tr><th>Exercise</th><th>Sets</th><th>RIR</th><th>Rest</th></tr></thead>
+      <tbody>
+        <tr class="ex"><td>Trap-bar deadlift</td><td class="num sets">3 x 5</td><td class="num">3</td><td class="num">2:30</td></tr>
+        <tr class="ex"><td>Front squat</td><td class="num sets">3 x 8-10</td><td class="num">2</td><td class="num">2:00</td></tr>
+        <tr class="ex"><td>Hack squat</td><td class="num sets">3 x 8-12</td><td class="num">2</td><td class="num">2:00</td></tr>
+        <tr class="ex"><td>Barbell hip thrust</td><td class="num sets">3 x 8-10</td><td class="num">2</td><td class="num">2:00</td></tr>
+        <tr class="ex"><td>Lying leg curl</td><td class="num sets">3 x 10-12</td><td class="num">1</td><td class="num">1:30</td></tr>
+        <tr class="ex"><td>Bulgarian split squat</td><td class="num sets">2 x 8-10 / leg</td><td class="num">1</td><td class="num">1:30</td></tr>
+        <tr class="ex"><td>Seated calf raise</td><td class="num sets">3 x 12-15</td><td class="num">1</td><td class="num">45s</td></tr>
+        <tr class="ex"><td>Cable crunch</td><td class="num sets">2 x 12-15</td><td class="num">1</td><td class="num">60s</td></tr>
+        <tr class="ex"><td>Pallof press</td><td class="num sets">2 x 10-12 / side</td><td class="num">1</td><td class="num">45s</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Deadlift added, hip thrust moved ahead of the quad work, Pallof replaces the duplicate ab machine.</div>
+  </div>
+</section>
+
+<section id="rules">
+  <h2><span class="n">05</span> Progression rules</h2>
+  <p class="lede">One algorithm, applied to every exercise. Log the set, and the next load follows from it.</p>
+  <ol class="steps">
+    <li><b>Top of the range on every set, at target RIR:</b> add 5 lb on upper-body barbell and all machines, 10 lb on lower-body barbell.</li>
+    <li><b>Jump too big:</b> if the increment is over 5% of the load (10% on squat, hinge and lunge patterns), hold the weight and add one rep instead. Dumbbells add 5 lb per hand, and use the rep push when the next bell is over 7% heavier.</li>
+    <li><b>Inside the range:</b> same load, one more rep on the last set.</li>
+    <li><b>Missed the bottom twice:</b> cut one set for two weeks and take 7.5% off the bar. Rebuild.</li>
+    <li><b>Flat for three sessions:</b> swap inside the same pattern. New baseline is a weight you can do for the bottom of the range plus two, at RIR 2.</li>
+    <li><b>Two main lifts flat in one week:</b> take the deload early. Fatigue is systemic, not exercise specific.</li>
+  </ol>
+  <div class="callout"><b>RIR by type:</b> main barbell 1-2, secondary compounds 2, machines and dumbbells 1-2, isolation 0-1 on the last set only. RPE 10 on a main lift stays off the table until week 12.</div>
+</section>
+
+<section id="cardio">
+  <h2><span class="n">06</span> Cardio</h2>
+  <ul class="flat">
+    <li><span>Zone 2: 25-40 min, 3-4 times a week, after lifting. Never before legs.</span><span class="k">HR 120-135</span></li>
+    <li><span>Intervals: 30 sec hard, 90 sec easy, 6-8 rounds, bike or rower</span><span class="k">1x / week</span></li>
+    <li><span>Daily steps</span><span class="k">8-10k</span></li>
+    <li><span>Skip intervals in deload weeks</span><span class="k">W4, W8</span></li>
+  </ul>
+  <p class="lede" style="margin-top:14px">That is roughly 800-1200 kcal a week, about 0.2 to 0.35 lb of fat on its own, without touching recovery the way extra lifting would.</p>
+</section>
+
+<section id="fuel">
+  <h2><span class="n">07</span> Nutrition</h2>
+  <p class="lede">Starting points. Replace the TDEE estimate after two weeks with the number your intake and weight change actually produce.</p>
+  <ul class="flat">
+    <li><span>TDEE, then 15% below it</span><span class="k">weight x 15 - 15%</span></li>
+    <li><span>Rate of loss</span><span class="k">0.5-1.0 lb / week</span></li>
+    <li><span>Protein</span><span class="k">1.0 g / lb</span></li>
+    <li><span>Fat</span><span class="k">0.4 g / lb</span></li>
+    <li><span>Carbs</span><span class="k">remainder</span></li>
+    <li><span>Creatine monohydrate</span><span class="k">5 g daily</span></li>
+    <li><span>Sleep</span><span class="k">7-9 h</span></li>
+  </ul>
+  <div class="callout">
+    <b>Every two weeks:</b> losing 0.5 to 1.0 lb and strength holding, change nothing. Losing under 0.25 lb with a flat waist, cut 150 to 200 kcal. Losing over 1.2 lb or strength dropping, add 150 to 200 kcal from carbs. Weight flat, waist down, strength up: hold, that is the recomp working.
+  </div>
+</section>
+
+<footer>
+  Built from the 12-week recomp audit, October 2026.<br>
+  Tracks in the app in the same folder. Seeded loads come from the original sheet and are replaced by your first logged set.
+</footer>
+</div>
+</body>
+</html>
